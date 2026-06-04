@@ -22,6 +22,7 @@ import CommandPalette from "@/components/features/CommandPalette";
 import ManushGPT from "@/components/features/ManushGPT";
 import CustomCursor from "@/components/ui/custom-cursor";
 import ParticleBackground from "@/components/ui/particle-background";
+import PageTransition from "@/components/layout/page-transition";
 
 export default function RootLayout({
   children,
@@ -44,7 +45,11 @@ export default function RootLayout({
 
         {/* Content */}
         <Navbar />
-        <main className="flex-grow relative z-10">{children}</main>
+        <main className="flex-grow flex flex-col relative z-10">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
         <CommandPalette />
         <ManushGPT />
       </body>
