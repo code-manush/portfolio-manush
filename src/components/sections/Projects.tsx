@@ -10,89 +10,7 @@ import TiltCard from "@/components/ui/tilt-card";
 
 import Link from "next/link";
 
-type Project = {
-  slug: string;
-  title: string;
-  tagline: string;
-  description: string;
-  features: string[];
-  tech: string[];
-  image: string;
-  github: string;
-  demo: string;
-  accent: string;
-  architecture: {
-    layers: { name: string; icon: React.ReactNode; items: string[]; color: string }[];
-  };
-  highlights: { icon: React.ReactNode; label: string; value: string }[];
-};
-
-const projects: Project[] = [
-  {
-    slug: "traff-iq",
-    title: "Traff-IQ",
-    tagline: "AI-Powered Adaptive Traffic Management",
-    description:
-      "A real-time AI system that uses computer vision to intelligently manage urban traffic signals, detect violations, and prioritize emergency vehicles.",
-    features: [
-      "YOLOv8 vehicle detection & classification",
-      "Real-time multi-camera traffic analysis",
-      "Emergency vehicle prioritization",
-      "Violation detection with evidence capture",
-      "Smart adaptive signal optimization",
-    ],
-    tech: ["Python", "YOLOv8", "OpenCV", "PyTorch", "React", "Node.js"],
-    image: "/traff-iq-mockup.png",
-    github: "#",
-    demo: "#",
-    accent: "#E8293A",
-    highlights: [
-      { icon: <Zap className="w-4 h-4" />, label: "Latency", value: "<100ms" },
-      { icon: <Shield className="w-4 h-4" />, label: "Accuracy", value: "94.3%" },
-      { icon: <Layers className="w-4 h-4" />, label: "Cameras", value: "Multi-Feed" },
-    ],
-    architecture: {
-      layers: [
-        { name: "Input Layer", icon: <GitBranch className="w-4 h-4" />, items: ["Camera Feeds", "RTSP Streams", "Sensor Data"], color: "#3B82F6" },
-        { name: "AI Core", icon: <Zap className="w-4 h-4" />, items: ["YOLOv8 Detection", "PyTorch Models", "OpenCV Processing"], color: "#E8293A" },
-        { name: "Logic Engine", icon: <Layers className="w-4 h-4" />, items: ["Priority Queue", "Signal Controller", "Violation Tracker"], color: "#FF6B35" },
-        { name: "Frontend", icon: <Shield className="w-4 h-4" />, items: ["React Dashboard", "Node.js API", "Real-time WebSockets"], color: "#9B1C2E" },
-      ],
-    },
-  },
-  {
-    slug: "skillbuddy",
-    title: "SkillBuddy",
-    tagline: "AI-Powered Personalized Learning Platform",
-    description:
-      "An intelligent learning platform that uses Gemini AI to analyze skill gaps, create personalized learning paths, and track progress over time.",
-    features: [
-      "Adaptive learning path generation",
-      "AI-driven skill gap analysis",
-      "Gemini API integration for personalization",
-      "Real-time progress tracking & analytics",
-      "Smart content recommendations",
-    ],
-    tech: ["React", "Node.js", "MongoDB", "Gemini API", "Express.js", "JWT"],
-    image: "/skillbuddy-mockup.png",
-    github: "#",
-    demo: "#",
-    accent: "#9B1C2E",
-    highlights: [
-      { icon: <Zap className="w-4 h-4" />, label: "AI Model", value: "Gemini Pro" },
-      { icon: <Shield className="w-4 h-4" />, label: "Auth", value: "JWT + Bcrypt" },
-      { icon: <Layers className="w-4 h-4" />, label: "Stack", value: "MERN" },
-    ],
-    architecture: {
-      layers: [
-        { name: "Client", icon: <GitBranch className="w-4 h-4" />, items: ["React 18", "Tailwind CSS", "Framer Motion"], color: "#3B82F6" },
-        { name: "API Layer", icon: <Zap className="w-4 h-4" />, items: ["Node.js", "Express.js", "JWT Auth"], color: "#9B1C2E" },
-        { name: "AI Service", icon: <Layers className="w-4 h-4" />, items: ["Gemini API", "Prompt Engineering", "RAG Pipeline"], color: "#FF6B35" },
-        { name: "Database", icon: <Shield className="w-4 h-4" />, items: ["MongoDB Atlas", "Redis Cache", "CDN Assets"], color: "#E8293A" },
-      ],
-    },
-  },
-];
+import { projectsData } from "@/data/projects";
 
 export default function Projects() {
 
@@ -116,7 +34,7 @@ export default function Projects() {
         </motion.div>
 
         <div className="flex flex-col gap-32">
-          {projects.map((project, index) => (
+          {projectsData.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}

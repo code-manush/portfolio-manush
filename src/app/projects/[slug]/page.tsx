@@ -1,79 +1,12 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Layers, GitBranch, Zap, Shield } from "lucide-react";
+import { ArrowLeft, ExternalLink, Layers, GitBranch, Zap, Shield, CheckCircle2 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Navbar from "@/components/layout/navbar";
 import CustomCursor from "@/components/ui/custom-cursor";
 import ParticleBackground from "@/components/ui/particle-background";
-
-// Reusing project data for the dynamic page. In a real app this would come from a DB or CMS.
-const projectsData = [
-  {
-    slug: "traff-iq",
-    title: "Traff-IQ",
-    tagline: "AI-Powered Adaptive Traffic Management",
-    description:
-      "A real-time AI system that uses computer vision to intelligently manage urban traffic signals, detect violations, and prioritize emergency vehicles. Built with robust computer vision models and an adaptive traffic signal control algorithm, Traff-IQ aims to revolutionize how modern cities handle vehicle flow.",
-    features: [
-      "YOLOv8 vehicle detection & classification",
-      "Real-time multi-camera traffic analysis",
-      "Emergency vehicle prioritization",
-      "Violation detection with evidence capture",
-      "Smart adaptive signal optimization",
-    ],
-    tech: ["Python", "YOLOv8", "OpenCV", "PyTorch", "React", "Node.js"],
-    image: "/traff-iq-mockup.png",
-    github: "#",
-    demo: "#",
-    accent: "#E8293A",
-    highlights: [
-      { icon: <Zap className="w-4 h-4" />, label: "Latency", value: "<100ms" },
-      { icon: <Shield className="w-4 h-4" />, label: "Accuracy", value: "94.3%" },
-      { icon: <Layers className="w-4 h-4" />, label: "Cameras", value: "Multi-Feed" },
-    ],
-    architecture: {
-      layers: [
-        { name: "Input Layer", icon: <GitBranch className="w-4 h-4" />, items: ["Camera Feeds", "RTSP Streams", "Sensor Data"], color: "#3B82F6" },
-        { name: "AI Core", icon: <Zap className="w-4 h-4" />, items: ["YOLOv8 Detection", "PyTorch Models", "OpenCV Processing"], color: "#E8293A" },
-        { name: "Logic Engine", icon: <Layers className="w-4 h-4" />, items: ["Priority Queue", "Signal Controller", "Violation Tracker"], color: "#FF6B35" },
-        { name: "Frontend", icon: <Shield className="w-4 h-4" />, items: ["React Dashboard", "Node.js API", "Real-time WebSockets"], color: "#9B1C2E" },
-      ],
-    },
-  },
-  {
-    slug: "skillbuddy",
-    title: "SkillBuddy",
-    tagline: "AI-Powered Personalized Learning Platform",
-    description:
-      "An intelligent learning platform that uses Gemini AI to analyze skill gaps, create personalized learning paths, and track progress over time. SkillBuddy is designed to adapt to a user's unique learning pace, providing tailored resources and dynamically adjusting difficulty to maximize educational outcomes.",
-    features: [
-      "Adaptive learning path generation",
-      "AI-driven skill gap analysis",
-      "Gemini API integration for personalization",
-      "Real-time progress tracking & analytics",
-      "Smart content recommendations",
-    ],
-    tech: ["React", "Node.js", "MongoDB", "Gemini API", "Express.js", "JWT"],
-    image: "/skillbuddy-mockup.png",
-    github: "#",
-    demo: "#",
-    accent: "#9B1C2E",
-    highlights: [
-      { icon: <Zap className="w-4 h-4" />, label: "AI Model", value: "Gemini Pro" },
-      { icon: <Shield className="w-4 h-4" />, label: "Auth", value: "JWT + Bcrypt" },
-      { icon: <Layers className="w-4 h-4" />, label: "Stack", value: "MERN" },
-    ],
-    architecture: {
-      layers: [
-        { name: "Client", icon: <GitBranch className="w-4 h-4" />, items: ["React 18", "Tailwind CSS", "Framer Motion"], color: "#3B82F6" },
-        { name: "API Layer", icon: <Zap className="w-4 h-4" />, items: ["Node.js", "Express.js", "JWT Auth"], color: "#9B1C2E" },
-        { name: "AI Service", icon: <Layers className="w-4 h-4" />, items: ["Gemini API", "Prompt Engineering", "RAG Pipeline"], color: "#FF6B35" },
-        { name: "Database", icon: <Shield className="w-4 h-4" />, items: ["MongoDB Atlas", "Redis Cache", "CDN Assets"], color: "#E8293A" },
-      ],
-    },
-  },
-];
+import { projectsData } from "@/data/projects";
 
 export async function generateStaticParams() {
   return projectsData.map((project) => ({
@@ -107,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="relative h-64 md:h-96 overflow-hidden rounded-3xl border mb-12" style={{ borderColor: `${project.accent}30` }}>
           <Image src={project.image} alt={project.title} fill className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,10,10,1) 0%, transparent 70%)" }} />
-          <div className="absolute bottom-8 left-8 md:bottom-10 md:left-10">
+          <div className="absolute bottom-8 left-8 md:bottom-10 md:left-10 z-10">
             <p className="text-sm font-mono mb-2 tracking-widest uppercase" style={{ color: project.accent }}>// {project.tagline}</p>
             <h1 className="text-4xl md:text-6xl font-black font-heading text-white mb-4">{project.title}</h1>
             <div className="flex flex-wrap gap-2">
@@ -125,33 +58,37 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
 
         <div className="grid md:grid-cols-3 gap-12">
-          {/* Main Content */}
-          <div className="md:col-span-2 space-y-12">
+          {/* Main Content (Case Study Mode) */}
+          <div className="md:col-span-2 space-y-16">
+            
+            {/* The Problem */}
             <div>
-              <h2 className="text-xl font-bold font-heading mb-4 text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold font-heading mb-4 text-white flex items-center gap-3">
                 <span className="w-8 h-[2px]" style={{ background: project.accent }}></span>
-                Overview
+                The Problem
               </h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">{project.description}</p>
+              <p className="text-muted-foreground leading-relaxed text-lg">{project.problemStatement}</p>
             </div>
 
+            {/* Design Decisions & Trade-offs */}
             <div>
-              <h2 className="text-xl font-bold font-heading mb-6 text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold font-heading mb-6 text-white flex items-center gap-3">
                 <span className="w-8 h-[2px]" style={{ background: project.accent }}></span>
-                Key Features
+                Design Decisions & Trade-offs
               </h2>
-              <ul className="space-y-4">
-                {project.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                    <span className="mt-1" style={{ color: project.accent }}>▸</span>
-                    <span>{feature}</span>
-                  </li>
+              <div className="space-y-4">
+                {project.designDecisions.map((decision, i) => (
+                  <div key={i} className="p-5 rounded-2xl border" style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.05)" }}>
+                    <h3 className="font-semibold text-white mb-2 font-mono text-sm uppercase tracking-wider" style={{ color: project.accent }}>{decision.label}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{decision.value}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
+            {/* System Architecture */}
             <div>
-              <h2 className="text-xl font-bold font-heading mb-6 text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold font-heading mb-6 text-white flex items-center gap-3">
                 <span className="w-8 h-[2px]" style={{ background: project.accent }}></span>
                 System Architecture
               </h2>
@@ -175,6 +112,33 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 ))}
               </div>
             </div>
+
+            {/* Image Gallery */}
+            <div>
+              <h2 className="text-2xl font-bold font-heading mb-6 text-white flex items-center gap-3">
+                <span className="w-8 h-[2px]" style={{ background: project.accent }}></span>
+                Gallery
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {project.gallery.map((img, i) => (
+                  <div key={i} className="relative h-48 rounded-2xl overflow-hidden border border-white/10 group">
+                    <Image src={img} alt={`${project.title} screenshot ${i+1}`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Retrospective */}
+            <div>
+              <h2 className="text-2xl font-bold font-heading mb-4 text-white flex items-center gap-3">
+                <span className="w-8 h-[2px]" style={{ background: project.accent }}></span>
+                Retrospective
+              </h2>
+              <div className="p-6 rounded-2xl border-l-4" style={{ background: "rgba(255,255,255,0.02)", borderColor: project.accent }}>
+                <p className="text-muted-foreground leading-relaxed italic">"{project.retrospective}"</p>
+              </div>
+            </div>
+
           </div>
 
           {/* Sidebar */}
@@ -189,6 +153,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                       <span className="text-sm">{h.label}</span>
                     </div>
                     <span className="font-bold text-white font-heading">{h.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Measurable Outcomes */}
+            <div className="p-6 rounded-3xl border" style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.05)" }}>
+              <h3 className="text-sm font-mono uppercase tracking-widest mb-6" style={{ color: project.accent }}>Outcomes</h3>
+              <div className="space-y-4">
+                {project.outcomes.map((outcome, i) => (
+                  <div key={i} className="flex gap-3 text-sm text-muted-foreground">
+                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: project.accent }} />
+                    <span className="leading-snug">{outcome}</span>
                   </div>
                 ))}
               </div>
