@@ -2,10 +2,9 @@
 
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useState } from "react";
-import Workspace3D from "@/components/3d/Workspace3D";
+import HolographicCard from "@/components/ui/holographic-card";
 import MagneticButton from "@/components/ui/magnetic-button";
 import WebGLShader from "@/components/ui/webgl-shader";
-import ASCIIHeroCanvas from "@/components/ui/ascii-hero-canvas";
 import { ArrowRight, Download, Code, Cpu, GitMerge } from "lucide-react";
 
 const badges = [
@@ -25,17 +24,17 @@ export default function Hero() {
   // Scroll-linked animations
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const textScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
-  
+
   // Parallax layers (different speeds for 3D depth)
   const bgTextY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]); // Deepest
   const bg1Y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]); // slow parallax
   const bg2Y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]); // medium parallax
-  
+
   const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]); // Name
   const taglineY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]); // Tagline
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]); // Subtitle / Buttons
   const canvasY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]); // 3D canvas
-  
+
   const letterSpread = useTransform(scrollYProgress, [0, 0.4], ["normal", "0.05em"]);
 
   // Track scroll as a plain number for the ASCII canvas
@@ -192,20 +191,14 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* 3D Visual + ASCII Particle Name */}
+        {/* Centerpiece - Holographic Card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="relative hidden lg:block"
-          style={{ minHeight: 420 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="relative lg:w-1/2 flex justify-center mt-12 lg:mt-0"
         >
-          {/* 3D workspace — always visible */}
-          <Workspace3D />
-          {/* ASCII particle text layered on top */}
-          <div className="absolute inset-0">
-            <ASCIIHeroCanvas scrollProgress={scrollYProgress} />
-          </div>
+          <HolographicCard />
         </motion.div>
       </div>
 
