@@ -149,9 +149,14 @@ export default function HolographicCard() {
           {/* Outer Glow Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent z-10 pointer-events-none" />
 
-          {/* Image Layer with Grayscale + Red Tint */}
-          <div className="absolute inset-0 bg-[url('/IMG-20260209-WA0119.jpg')] bg-cover bg-center opacity-80 mix-blend-luminosity" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-primary/20 to-transparent mix-blend-multiply" />
+          {/* Image Layer - Grayscale to Color on Hover */}
+          <div className="absolute inset-0 bg-[url('/IMG-20260209-WA0119.jpg')] bg-cover bg-center opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out" />
+          
+          {/* Gradient Overlay for bottom blending */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/50 to-transparent" />
+          
+          {/* Subtle red tint that fades away on hover to reveal true colors */}
+          <div className="absolute inset-0 bg-primary/20 mix-blend-color group-hover:opacity-0 transition-opacity duration-700" />
 
           {/* Dynamic Holographic Glare */}
           <motion.div

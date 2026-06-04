@@ -4,14 +4,16 @@ import { motion } from "framer-motion";
 import { Fragment } from "react";
 
 const items = [
+  "Next.js",
+  "TypeScript",
+  "Python",
+  "PyTorch",
   "React",
   "Node.js",
-  "Open Source",
-  "MERN",
-  "AI",
-  "Full Stack",
-  "YOLOv8",
-  "IIIT Vadodara",
+  "Computer Vision",
+  "Tailwind CSS",
+  "MongoDB",
+  "Docker"
 ];
 
 export default function MarqueeTicker() {
