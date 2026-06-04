@@ -2,37 +2,70 @@
 
 import { motion } from "framer-motion";
 import SkillsRadar from "@/components/ui/skills-radar";
+import { 
+  SiReact, SiNextdotjs, SiTailwindcss, SiJavascript, SiTypescript, 
+  SiNodedotjs, SiExpress, SiMongodb, SiFirebase, SiPython, 
+  SiPytorch, SiOpencv, SiGit, SiGithub, SiPostman, SiDocker, SiVercel,
+  SiJsonwebtokens, SiGoogle
+} from "react-icons/si";
+import { TbBrain, TbApi } from "react-icons/tb";
 
 const skillCategories = [
   {
     title: "Frontend",
     label: "01",
-    skills: ["React", "Next.js", "Tailwind CSS", "JavaScript", "TypeScript"],
     color: "#E8293A",
+    skills: [
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Next.js", icon: SiNextdotjs, color: "#ffffff" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+    ],
   },
   {
     title: "Backend",
     label: "02",
-    skills: ["Node.js", "Express.js", "REST APIs", "JWT"],
     color: "#FF6B35",
+    skills: [
+      { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+      { name: "Express", icon: SiExpress, color: "#ffffff" },
+      { name: "REST APIs", icon: TbApi, color: "#007ACC" },
+      { name: "JWT", icon: SiJsonwebtokens, color: "#ffffff" }
+    ],
   },
   {
     title: "Databases",
     label: "03",
-    skills: ["MongoDB", "Firebase"],
     color: "#9B1C2E",
+    skills: [
+      { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+      { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+    ],
   },
   {
     title: "AI / ML",
     label: "04",
-    skills: ["Python", "PyTorch", "OpenCV", "YOLOv8", "Gemini API"],
     color: "#E8293A",
+    skills: [
+      { name: "Python", icon: SiPython, color: "#3776AB" },
+      { name: "PyTorch", icon: SiPytorch, color: "#EE4C2C" },
+      { name: "OpenCV", icon: SiOpencv, color: "#5C3EE8" },
+      { name: "YOLOv8", icon: TbBrain, color: "#00FFFF" },
+      { name: "Gemini API", icon: SiGoogle, color: "#4285F4" },
+    ],
   },
   {
     title: "DevOps & Tools",
     label: "05",
-    skills: ["Git", "GitHub", "Postman", "Docker", "Vercel"],
     color: "#FF6B35",
+    skills: [
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub, color: "#ffffff" },
+      { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+      { name: "Docker", icon: SiDocker, color: "#2496ED" },
+      { name: "Vercel", icon: SiVercel, color: "#ffffff" },
+    ],
   },
 ];
 
@@ -55,12 +88,12 @@ export default function Skills() {
         >
           <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block" style={{ color: "#E8293A" }}>// technical arsenal</span>
           <h2 className="text-4xl md:text-5xl font-bold font-heading">
-            Skills & <span className="text-gradient">Technologies</span>
+            Tech <span className="text-gradient">Stack</span>
           </h2>
         </motion.div>
 
-        {/* Two-column layout: Radar + Skill Pills */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        {/* Two-column layout: Radar + Icon Wall */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Radar chart */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -78,14 +111,8 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          {/* Skill pills */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="grid grid-cols-1 gap-5"
-          >
+          {/* Categories Wall */}
+          <div className="flex flex-col gap-8">
             {skillCategories.map((category, index) => (
               <motion.div
                 key={index}
@@ -93,7 +120,7 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.07 }}
-                className="relative rounded-2xl p-5 glass-card glass-card-hover overflow-hidden group"
+                className="relative rounded-2xl p-6 glass-card glass-card-hover overflow-hidden group"
               >
                 <span
                   className="absolute top-4 right-4 font-mono text-4xl font-black leading-none opacity-5 group-hover:opacity-10 transition-opacity"
@@ -101,34 +128,72 @@ export default function Skills() {
                 >
                   {category.label}
                 </span>
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-6">
                   <div className="w-1 h-5 rounded-full" style={{ background: category.color, boxShadow: `0 0 6px ${category.color}80` }} />
-                  <h3 className="text-sm font-bold font-heading text-white">{category.title}</h3>
+                  <h3 className="text-lg font-bold font-heading text-white">{category.title}</h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                
+                {/* Icon Grid for this Category */}
+                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
                   {category.skills.map((skill, idx) => (
-                    <motion.span
+                    <motion.div
                       key={idx}
-                      whileHover={{ scale: 1.08, y: -2 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="px-3 py-1 rounded-full text-xs font-medium text-white/80 border transition-all hover:text-white"
-                      style={{ background: `${category.color}0a`, borderColor: `${category.color}20`, cursor: "none" }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = `${category.color}60`;
-                        (e.currentTarget as HTMLElement).style.boxShadow = `0 0 10px ${category.color}30`;
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.borderColor = `${category.color}20`;
-                        (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                      }}
+                      className="group/item relative"
                     >
-                      {skill}
-                    </motion.span>
+                      <motion.div
+                        animate={{ y: [0, -4, 0] }}
+                        transition={{ 
+                          duration: 3, 
+                          repeat: Infinity, 
+                          repeatType: "mirror", 
+                          delay: (idx % 3) * 0.4 + (idx % 2) * 0.2, // Offset animation phases
+                          ease: "easeInOut" 
+                        }}
+                        className="flex flex-col items-center justify-center p-3 rounded-2xl glass-card relative overflow-hidden transition-all duration-300 group-hover/item:scale-110 group-hover/item:-translate-y-1 z-10 group-hover/item:z-20"
+                        style={{ 
+                          background: "rgba(255,255,255,0.02)", 
+                          border: "1px solid rgba(255,255,255,0.05)" 
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.borderColor = skill.color;
+                          el.style.background = `rgba(255,255,255,0.04)`;
+                          el.style.boxShadow = `0 0 20px ${skill.color}40, inset 0 0 10px ${skill.color}20`;
+                          const icon = el.querySelector("svg");
+                          if (icon) {
+                            icon.style.color = skill.color;
+                            icon.style.filter = `drop-shadow(0 0 8px ${skill.color})`;
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget as HTMLElement;
+                          el.style.borderColor = "rgba(255,255,255,0.05)";
+                          el.style.background = "rgba(255,255,255,0.02)";
+                          el.style.boxShadow = "none";
+                          const icon = el.querySelector("svg");
+                          if (icon) {
+                            icon.style.color = "rgba(255,255,255,0.5)";
+                            icon.style.filter = "none";
+                          }
+                        }}
+                      >
+                        <skill.icon className="w-7 h-7 text-white/50 transition-all duration-300 group-hover/item:scale-110" />
+                        <span className="mt-2 text-[9px] font-mono tracking-wider text-white/40 group-hover/item:text-white/90 transition-colors uppercase text-center w-full truncate">
+                          {skill.name}
+                        </span>
+                      </motion.div>
+                      
+                      {/* Glow behind the card on hover */}
+                      <div 
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 blur-lg -z-10"
+                        style={{ background: skill.color }}
+                      />
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
