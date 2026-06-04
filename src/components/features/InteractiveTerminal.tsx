@@ -27,7 +27,9 @@ export default function InteractiveTerminal() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (logs.length > 1) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [logs]);
 
   const handleCommand = (e: React.FormEvent) => {

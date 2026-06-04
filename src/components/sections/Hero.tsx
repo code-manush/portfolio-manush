@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import HolographicCard from "@/components/ui/holographic-card";
 import MagneticButton from "@/components/ui/magnetic-button";
 import WebGLShader from "@/components/ui/webgl-shader";
@@ -13,8 +13,46 @@ const badges = [
   { icon: <GitMerge className="w-3.5 h-3.5" />, text: "Open Source" },
 ];
 
+const PASSION_WORDS = [
+  "blending AI with sleek interfaces.",
+  "building scalable web applications.",
+  "crafting beautiful UI/UX designs.",
+  "solving complex real-world problems.",
+  "contributing to open source."
+];
+
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const [wordIndex, setWordIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = PASSION_WORDS[wordIndex];
+    let timeout: NodeJS.Timeout;
+
+    if (isDeleting) {
+      timeout = setTimeout(() => {
+        const nextText = currentWord.substring(0, text.length - 1);
+        setText(nextText);
+        if (nextText === "") {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % PASSION_WORDS.length);
+        }
+      }, 40);
+    } else {
+      if (text === currentWord) {
+        timeout = setTimeout(() => setIsDeleting(true), 2500);
+      } else {
+        timeout = setTimeout(() => {
+          setText(currentWord.substring(0, text.length + 1));
+        }, 80);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -90,25 +128,28 @@ export default function Hero() {
         {/* Text block — scroll-linked */}
         <motion.div
           style={{ opacity: textOpacity, scale: textScale }}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 lg:pl-10 xl:pl-16 pt-2 xl:pt-3"
         >
           {/* Status & Name - Mid Layer */}
           <motion.div
             style={{ y: nameY }}
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="flex flex-col items-start gap-4"
           >
-            <span
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-white/80 border"
-              style={{ background: "rgba(232,41,58,0.08)", borderColor: "rgba(232,41,58,0.25)" }}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-white/90 border border-white/10 backdrop-blur-md"
+              style={{ background: "linear-gradient(90deg, rgba(232,41,58,0.15) 0%, rgba(255,255,255,0.03) 100%)" }}
             >
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
               Available for Opportunities
-            </span>
-            <h2 className="text-xl md:text-2xl font-semibold text-white/70 font-mono tracking-tight mt-1">
-              Hi, I'm <span className="text-white">Manush Patel</span>.
+            </div>
+            <h2 className="text-lg md:text-xl font-medium text-white/60 tracking-wide mt-2 uppercase font-mono">
+              Hello, I'm <span className="text-white font-bold">Manush Patel</span>
             </h2>
           </motion.div>
 
@@ -117,21 +158,15 @@ export default function Hero() {
             style={{ y: taglineY }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           >
             <motion.h1
-              className="text-5xl md:text-6xl lg:text-[4.5rem] font-bold leading-[1.08] font-heading"
+              className="text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold leading-[1.08] tracking-tight"
               style={{ letterSpacing: letterSpread as any }}
             >
-              Building{" "}
-              <span className="text-gradient" style={{ textShadow: "0 0 40px rgba(232,41,58,0.25)" }}>
-                AI Systems
-              </span>
-              ,<br />
-              Full Stack{" "}
-              <span className="text-white/90">Products</span>,<br />
-              and{" "}
-              <span className="text-gradient-subtle">Ideas That Scale</span>.
+              <span className="text-white">Building systems</span><br />
+              <span className="text-white/90">and ideas that</span><br />
+              <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-primary via-red-400 to-orange-400" style={{ textShadow: "0 0 40px rgba(232,41,58,0.3)" }}>actually scale.</span>
             </motion.h1>
           </motion.div>
 
@@ -140,20 +175,24 @@ export default function Hero() {
             style={{ y: contentY }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
             className="flex flex-col gap-3 mt-2"
           >
-            <p className="text-white/90 font-semibold text-lg">CSE Student at IIIT Vadodara</p>
-            <div className="flex flex-wrap gap-2 mt-1">
+            <div className="text-white/70 font-medium text-lg max-w-lg leading-relaxed min-h-[4.5rem]">
+              CSE Student at <span className="text-white/90 font-semibold">IIIT Vadodara</span>.<br />
+              Passionate about <span className="text-white/90">{text}</span>
+              <span className="animate-pulse inline-block w-[2px] h-[1em] bg-primary ml-1 align-middle" />
+            </div>
+            <div className="flex flex-wrap gap-2.5 mt-1">
               {badges.map((badge, i) => (
-                <span
+                <div
                   key={i}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-white/70 border border-white/10 hover:border-primary/30 hover:text-white transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-white/80 border border-white/5 backdrop-blur-md hover:border-primary/50 hover:bg-primary/10 hover:text-white transition-all duration-300 cursor-default shadow-[0_0_15px_rgba(0,0,0,0.1)]"
                   style={{ background: "rgba(255,255,255,0.03)" }}
                 >
                   <span className="text-primary">{badge.icon}</span>
                   {badge.text}
-                </span>
+                </div>
               ))}
             </div>
           </motion.div>
@@ -163,26 +202,28 @@ export default function Hero() {
             style={{ y: contentY }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
             className="flex flex-wrap items-center gap-4 mt-2"
           >
             <MagneticButton>
               <button
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white text-sm transition-all"
+                className="group relative flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white text-sm overflow-hidden transition-all hover:scale-105"
                 style={{
                   background: "linear-gradient(135deg, #E8293A 0%, #9B1C2E 100%)",
-                  boxShadow: "0 0 25px rgba(232,41,58,0.4), 0 4px 15px rgba(0,0,0,0.3)",
+                  boxShadow: "0 0 20px rgba(232,41,58,0.3), 0 4px 15px rgba(0,0,0,0.3)",
                 }}
                 onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               >
-                View Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+                <span className="relative z-10 flex items-center gap-2">
+                  View Projects
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
               </button>
             </MagneticButton>
             <MagneticButton>
               <button
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white/80 text-sm border border-white/15 hover:border-primary/40 hover:text-white transition-all"
-                style={{ background: "rgba(255,255,255,0.03)" }}
+                className="group flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white/80 text-sm border border-white/10 hover:bg-white/5 hover:border-white/20 hover:text-white transition-all backdrop-blur-sm shadow-[0_0_15px_rgba(0,0,0,0.1)]"
               >
                 Download Resume
                 <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
@@ -196,7 +237,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="relative lg:w-1/2 flex justify-center mt-12 lg:mt-0"
+          className="relative lg:w-1/2 flex justify-center mt-12 lg:mt-25"
         >
           <HolographicCard />
         </motion.div>
@@ -208,10 +249,16 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
         style={{ opacity: textOpacity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="text-xs text-muted-foreground tracking-widest uppercase">Scroll</span>
-        <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent" />
+        <span className="text-[10px] font-semibold text-white/50 tracking-[0.3em] uppercase">Scroll</span>
+        <div className="relative w-px h-16 bg-white/10 overflow-hidden">
+          <motion.div
+            className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent via-primary to-transparent"
+            animate={{ y: ["-100%", "200%"] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
       </motion.div>
     </section>
   );
