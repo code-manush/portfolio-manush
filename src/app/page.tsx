@@ -13,6 +13,7 @@ import LearningNow from "@/components/sections/LearningNow";
 import InteractiveTerminal from "@/components/features/InteractiveTerminal";
 import Contact from "@/components/sections/Contact";
 import MarqueeTicker from "@/components/ui/marquee-ticker";
+import SectionCounter from "@/components/layout/section-counter";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -22,6 +23,8 @@ export default function Home() {
     <>
       {/* Cinematic intro — plays once per session */}
       {!loaded && <CinematicLoader onComplete={handleLoaded} />}
+      
+      <SectionCounter />
 
       {/* Main content revealed after loader */}
       <div
