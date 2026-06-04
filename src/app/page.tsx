@@ -12,6 +12,7 @@ import GrowthTimeline from "@/components/sections/GrowthTimeline";
 import LearningNow from "@/components/sections/LearningNow";
 import InteractiveTerminal from "@/components/features/InteractiveTerminal";
 import Contact from "@/components/sections/Contact";
+import MarqueeTicker from "@/components/ui/marquee-ticker";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -32,6 +33,7 @@ export default function Home() {
         }}
       >
         <Hero />
+        <MarqueeTicker />
         <About />
         <GrowthTimeline />
         <Experience />
