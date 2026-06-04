@@ -1,26 +1,226 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================
+   RED-BLACK NEON LUXURY THEME
+   ============================ */
+
+:root,
+.dark {
+  /* Core backgrounds — pure black, not dark gray */
+  --background: #080808;
+  --foreground: #F5F5F5;
+  --card: #0E0E0E;
+  --card-foreground: #F5F5F5;
+  --popover: #0E0E0E;
+  --popover-foreground: #F5F5F5;
+
+  /* Primary Neon Red — NOT garish, slightly desaturated for class */
+  --primary: #E8293A;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary — deep crimson for depth */
+  --secondary: #9B1C2E;
+  --secondary-foreground: #FFFFFF;
+
+  /* Accent — warm ember orange for contrast */
+  --accent: #FF6B35;
+  --accent-foreground: #FFFFFF;
+
+  --muted: #141414;
+  --muted-foreground: #9CA3AF;
+
+  --border: rgba(232, 41, 58, 0.15);
+  --input: rgba(232, 41, 58, 0.08);
+  --ring: #E8293A;
+
+  --radius: 0.75rem;
+
+  /* Custom neon variables */
+  --neon-red: #E8293A;
+  --neon-red-glow: rgba(232, 41, 58, 0.5);
+  --neon-crimson: #9B1C2E;
+  --neon-ember: #FF6B35;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    cursor: none;
+  }
+  body {
+    @apply bg-background text-foreground;
+    cursor: none;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  /* Custom scrollbar — thin & red */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #080808;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--neon-red);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff3347;
+  }
+
+  /* Smooth selection highlight */
+  ::selection {
+    background: rgba(232, 41, 58, 0.3);
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass {
+    @apply bg-background/70 backdrop-blur-md;
+    border: 1px solid rgba(232, 41, 58, 0.12);
+  }
+  .glass-card {
+    @apply backdrop-blur-lg shadow-2xl;
+    background: rgba(14, 14, 14, 0.7);
+    border: 1px solid rgba(232, 41, 58, 0.1);
+  }
+  .glass-card-hover {
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .glass-card-hover:hover {
+    border-color: rgba(232, 41, 58, 0.35);
+    box-shadow: 0 0 30px rgba(232, 41, 58, 0.1), 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* Neon red text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #FF4D5E 0%, #E8293A 50%, #FF6B35 100%);
+  }
+  /* Subtle version for secondary headings */
+  .text-gradient-subtle {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #E8293A 0%, #9B1C2E 100%);
+  }
+
+  /* Neon glow effects */
+  .neon-glow {
+    box-shadow: 0 0 15px rgba(232, 41, 58, 0.4), 0 0 30px rgba(232, 41, 58, 0.2);
+  }
+  .neon-glow-text {
+    text-shadow: 0 0 20px rgba(232, 41, 58, 0.6), 0 0 40px rgba(232, 41, 58, 0.3);
+  }
+  .neon-border {
+    border: 1px solid rgba(232, 41, 58, 0.4);
+    box-shadow: 0 0 12px rgba(232, 41, 58, 0.15), inset 0 0 12px rgba(232, 41, 58, 0.05);
+  }
+
+  /* Grid overlay */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(232, 41, 58, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 41, 58, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Noise texture overlay */
+  .bg-noise {
+    position: relative;
+  }
+  .bg-noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(232, 41, 58, 0.3), 0 0 30px rgba(232, 41, 58, 0.1); }
+  50% { box-shadow: 0 0 25px rgba(232, 41, 58, 0.6), 0 0 50px rgba(232, 41, 58, 0.25); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Shimmer animation for skill pills */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
 }
