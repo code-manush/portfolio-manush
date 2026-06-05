@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, X, Layers, GitBranch, Zap, Shield } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
@@ -12,107 +12,107 @@ import Link from "next/link";
 
 import { projectsData } from "@/data/projects";
 
-export default function Projects() {
 
+function HorizontalProjectCard({ project, index }: { project: typeof projectsData[0]; index: number }) {
   return (
-    <section id="projects" className="py-28 relative">
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(232,41,58,0.3), transparent)" }} />
-
-      <div className="container mx-auto px-6 md:px-12 max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-24"
-        >
-          <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block" style={{ color: "#E8293A" }}>// featured work</span>
-          <h2 className="text-4xl md:text-5xl font-bold font-heading">
-            Production-Grade <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-muted-foreground mt-3 text-sm">Click any project to see full architecture breakdown</p>
-        </motion.div>
-
-        <div className="flex flex-col gap-32">
-          {projectsData.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className={`flex flex-col lg:flex-row gap-14 lg:gap-20 items-center ${index % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
-            >
-              {/* Tilt Card Image */}
-              <TiltCard
-                className="w-full lg:w-[58%] cursor-pointer"
-                glowColor={`${project.accent}40`}
-                intensity={8}
-              >
-                <Link href={`/projects/${project.slug}`}>
-                  <div
-                    className="relative rounded-2xl overflow-hidden border group"
-                  style={{
-                    borderColor: `${project.accent}25`,
-                    boxShadow: `0 0 0 1px ${project.accent}15, 0 30px 80px rgba(0,0,0,0.5)`,
-                  }}
-                >
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    width={1200}
-                    height={750}
-                    className="w-full h-auto object-cover"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(0,0,0,0.6)" }}>
-                    <div className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold" style={{ background: `${project.accent}cc`, backdropFilter: "blur(8px)" }}>
-                      <Layers className="w-4 h-4" /> View Architecture
-                    </div>
-                  </div>
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-mono font-semibold text-white/90" style={{ background: `${project.accent}cc`, backdropFilter: "blur(8px)" }}>
-                    Featured
-                  </div>
-                </div>
-                </Link>
-              </TiltCard>
-
-              {/* Details */}
-              <div className="w-full lg:w-[42%] flex flex-col gap-6">
-                <div>
-                  <span className="text-xs font-mono tracking-widest uppercase mb-2 block" style={{ color: project.accent }}>// 0{index + 1}</span>
-                  <h3 className="text-3xl md:text-4xl font-bold font-heading text-white mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground font-medium mb-3">{project.tagline}</p>
-                  <p className="text-muted-foreground/80 text-sm leading-relaxed">{project.description}</p>
-                </div>
-                <div className="space-y-2">
-                  {project.features.map((f, i) => (
-                    <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span style={{ color: project.accent }}>▸</span>{f}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="text-xs px-3 py-1.5 rounded-full font-mono text-white/70 border transition-all hover:text-white" style={{ background: `${project.accent}08`, borderColor: `${project.accent}20` }}>{t}</span>
-                  ))}
-                </div>
-                <div className="flex items-center gap-4 mt-2">
-                  <MagneticButton>
-                    <a href={project.github} className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white border border-white/15 hover:border-primary/40 transition-all" style={{ background: "rgba(255,255,255,0.04)" }}>
-                      <FaGithub className="w-4 h-4" /> Code
-                    </a>
-                  </MagneticButton>
-                  <MagneticButton>
-                    <Link href={`/projects/${project.slug}`} className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all" style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}bb)`, boxShadow: `0 0 20px ${project.accent}40` }}>
-                      <ExternalLink className="w-4 h-4" /> Deep Dive
-                    </Link>
-                  </MagneticButton>
-                </div>
-              </div>
-            </motion.div>
+    <div className="w-[85vw] md:w-[65vw] h-[60vh] md:h-[65vh] shrink-0 relative flex flex-col md:flex-row rounded-[2rem] overflow-hidden border border-white/10 bg-[#050505] group shadow-2xl">
+      
+      {/* Left Text Content */}
+      <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-12 flex flex-col justify-center relative z-20">
+        <div className="mb-4">
+          <span className="text-xs font-mono tracking-widest font-bold px-4 py-2 rounded-full bg-white/5 border border-white/10" style={{ color: project.accent }}>
+            0{index + 1} // {project.tagline}
+          </span>
+        </div>
+        
+        <h3 className="text-4xl md:text-5xl lg:text-6xl font-black font-heading tracking-tight mb-4 text-white">
+          {project.title}
+        </h3>
+        
+        <p className="text-muted-foreground/80 text-sm md:text-base lg:text-lg leading-relaxed mb-6 line-clamp-3">
+          {project.description}
+        </p>
+        
+        <div className="flex flex-wrap gap-2 mb-8 hidden md:flex">
+          {project.tech.map((t) => (
+            <span key={t} className="px-3 py-1.5 rounded-full text-[10px] md:text-xs font-mono border border-white/10 bg-white/5 text-white/70">
+              {t}
+            </span>
           ))}
         </div>
+        
+        <div className="flex gap-4 mt-auto">
+          <MagneticButton>
+            <Link 
+              href={`/projects/${project.slug}`} 
+              className="inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white transition-all hover:scale-105"
+              style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}80)`, boxShadow: `0 10px 30px -10px ${project.accent}` }}
+            >
+              <ExternalLink className="w-4 h-4 md:w-5 md:h-5" /> Explore
+            </Link>
+          </MagneticButton>
+          <MagneticButton>
+            <a 
+              href={project.github} 
+              target="_blank" 
+              rel="noreferrer"
+              className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full text-white transition-all hover:scale-105 border border-white/10 bg-white/5 hover:bg-white/10"
+            >
+              <FaGithub className="w-5 h-5 md:w-6 md:h-6" />
+            </a>
+          </MagneticButton>
+        </div>
+      </div>
+
+      {/* Right Image */}
+      <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden bg-black/50">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent z-10 hidden md:block" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10 block md:hidden" />
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-60 group-hover:opacity-100 grayscale group-hover:grayscale-0"
+        />
+      </div>
+
+      {/* Highlight Gradient Overlay */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none" style={{ background: `radial-gradient(circle at 70% 50%, ${project.accent}, transparent)` }} />
+    </div>
+  );
+}
+
+export default function Projects() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
+
+  return (
+    <section ref={containerRef} id="projects" className="relative h-[400vh] bg-[#030303]">
+      <div className="absolute top-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(232,41,58,0.3), transparent)" }} />
+      
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-end pb-[5vh] md:pb-[8vh]">
+        
+        {/* Fixed Title that stays in place while horizontal scrolling happens */}
+        <div className="absolute top-[8vh] left-[5vw] z-20 pointer-events-none">
+          <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block" style={{ color: "#E8293A" }}>// featured work</span>
+          <h2 className="text-5xl md:text-7xl font-black font-heading tracking-tight text-white drop-shadow-2xl">
+            Spotlight <span className="text-gradient">Projects</span>
+          </h2>
+        </div>
+
+        {/* Horizontal Slider */}
+        <motion.div style={{ x }} className="flex gap-[5vw] px-[5vw] items-center w-max">
+          {projectsData.map((project, index) => (
+            <HorizontalProjectCard key={project.slug} project={project} index={index} />
+          ))}
+        </motion.div>
+        
       </div>
     </section>
   );

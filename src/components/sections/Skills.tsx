@@ -138,7 +138,8 @@ export default function Skills() {
                   {category.skills.map((skill, idx) => (
                     <motion.div
                       key={idx}
-                      className="group/item relative"
+                      id={`skill-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+                      className="group/item relative transition-all duration-700"
                     >
                       <motion.div
                         animate={{ y: [0, -4, 0] }}
