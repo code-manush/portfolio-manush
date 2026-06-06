@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-export default function CustomCursor() {
+export default function CustomCursor({ color = "#E8293A" }: { color?: string }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
@@ -82,7 +82,7 @@ export default function CustomCursor() {
     <>
       {/* Main dot cursor */}
       <motion.div
-        className="fixed top-0 left-0 z-[9999] pointer-events-none"
+        className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-screen"
         style={{ x: mouseX, y: mouseY }}
         animate={{
           opacity: isVisible ? 1 : 0,
@@ -95,17 +95,18 @@ export default function CustomCursor() {
           style={{ width: 8, height: 8 }}
         >
           <div
-            className="absolute inset-0 rounded-full bg-red-500"
+            className="absolute inset-0 rounded-full"
             style={{
-              boxShadow: "0 0 8px #E8293A, 0 0 16px rgba(232,41,58,0.6)",
+              backgroundColor: color,
+              boxShadow: `0 0 8px ${color}, 0 0 16px ${color}80`,
             }}
           />
         </div>
       </motion.div>
 
-      {/* Trailing ring */}
+      {/* Trailing ring / Fading light trail */}
       <motion.div
-        className="fixed top-0 left-0 z-[9998] pointer-events-none"
+        className="fixed top-0 left-0 z-[9998] pointer-events-none mix-blend-screen"
         style={{ x: ringX, y: ringY }}
         animate={{
           opacity: isVisible ? 1 : 0,
@@ -118,9 +119,9 @@ export default function CustomCursor() {
           style={{
             width: 36,
             height: 36,
-            borderColor: isHovering ? "#E8293A" : "rgba(232, 41, 58, 0.5)",
+            borderColor: isHovering ? color : `${color}80`,
             boxShadow: isHovering
-              ? "0 0 12px rgba(232,41,58,0.5), inset 0 0 8px rgba(232,41,58,0.1)"
+              ? `0 0 12px ${color}80, inset 0 0 8px ${color}1a`
               : "none",
             transition: "border-color 0.2s, box-shadow 0.2s",
             backdropFilter: isHovering ? "blur(0px)" : "none",

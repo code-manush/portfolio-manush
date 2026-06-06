@@ -224,3 +224,15 @@
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
+
+/* Infinite horizontal scrolling carousel (4 sets for robust screen filling) */
+@keyframes scroll-x-4 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+.animate-scroll-x-4 {
+  animation: scroll-x-4 40s linear infinite;
+}
+.animate-scroll-x-4:hover {
+  animation-play-state: paused;
+}
