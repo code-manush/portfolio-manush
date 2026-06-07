@@ -8,8 +8,8 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Achievements from "@/components/sections/Achievements";
 import GrowthTimeline from "@/components/sections/GrowthTimeline";
-import LearningNow from "@/components/sections/LearningNow";
-import InteractiveTerminal from "@/components/features/InteractiveTerminal";
+
+
 import Contact from "@/components/sections/Contact";
 import MarqueeTicker from "@/components/ui/marquee-ticker";
 import SectionCounter from "@/components/layout/section-counter";
@@ -40,9 +40,9 @@ export default function Home() {
         <GrowthTimeline />
         <Projects />
         <Skills />
-        <LearningNow />
+
         <Achievements />
-        <InteractiveTerminal />
+
         <Contact />
       </div>
     </>

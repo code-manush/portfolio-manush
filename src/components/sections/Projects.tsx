@@ -43,13 +43,15 @@ function HorizontalProjectCard({ project, index }: { project: typeof projectsDat
         
         <div className="flex gap-4 mt-auto">
           <MagneticButton>
-            <Link 
-              href={`/projects/${project.slug}`} 
+            <a 
+              href={project.github} 
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white transition-all hover:scale-105"
               style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}80)`, boxShadow: `0 10px 30px -10px ${project.accent}` }}
             >
               <ExternalLink className="w-4 h-4 md:w-5 md:h-5" /> Explore
-            </Link>
+            </a>
           </MagneticButton>
           <MagneticButton>
             <a 

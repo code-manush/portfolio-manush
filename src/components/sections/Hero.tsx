@@ -222,12 +222,15 @@ export default function Hero() {
               </button>
             </MagneticButton>
             <MagneticButton>
-              <button
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white/80 text-sm border border-white/10 hover:bg-white/5 hover:border-white/20 hover:text-white transition-all backdrop-blur-sm shadow-[0_0_15px_rgba(0,0,0,0.1)]"
+              <a
+                href="/resume.pdf" target="_blank" rel="noreferrer"
+                className="group flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white/80 text-sm border border-white/10 hover:bg-white/5 hover:border-white/20 hover:text-white transition-all backdrop-blur-sm shadow-[0_0_15px_rgba(0,0,0,0.1)] inline-block"
               >
-                Download Resume
-                <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
-              </button>
+                <span className="flex items-center gap-2">
+                  Download Resume
+                  <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+              </a>
             </MagneticButton>
           </motion.div>
         </motion.div>

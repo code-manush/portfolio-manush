@@ -81,8 +81,9 @@ export default function Navbar() {
           </button>
 
           <MagneticButton>
-            <button
-              className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden group transition-all"
+            <a
+              href="/resume.pdf" target="_blank" rel="noreferrer"
+              className="relative px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden group transition-all inline-block"
               style={{
                 background: "linear-gradient(135deg, #E8293A, #9B1C2E)",
                 boxShadow: "0 0 20px rgba(232,41,58,0.3)",
@@ -92,7 +93,7 @@ export default function Navbar() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ background: "linear-gradient(135deg, #ff4d5e, #E8293A)" }}
               />
-            </button>
+            </a>
           </MagneticButton>
         </nav>
 
@@ -126,12 +127,13 @@ export default function Navbar() {
                   </li>
                 ))}
               </ul>
-              <button
-                className="px-8 py-4 rounded-full text-white font-semibold text-lg"
+              <a
+                href="/resume.pdf" target="_blank" rel="noreferrer"
+                className="px-8 py-4 rounded-full text-white font-semibold text-lg inline-block text-center"
                 style={{ background: "linear-gradient(135deg, #E8293A, #9B1C2E)", boxShadow: "0 0 30px rgba(232,41,58,0.3)" }}
               >
                 Download Resume
-              </button>
+              </a>
             </motion.div>
           )}
         </AnimatePresence>
