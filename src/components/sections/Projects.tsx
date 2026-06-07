@@ -16,7 +16,7 @@ import { projectsData } from "@/data/projects";
 function HorizontalProjectCard({ project, index }: { project: typeof projectsData[0]; index: number }) {
   return (
     <div className="w-[85vw] md:w-[65vw] h-[60vh] md:h-[65vh] shrink-0 relative flex flex-col md:flex-row rounded-[2rem] overflow-hidden border border-white/10 bg-[#050505] group shadow-2xl">
-      
+
       {/* Left Text Content */}
       <div className="w-full md:w-1/2 h-1/2 md:h-full p-8 md:p-12 flex flex-col justify-center relative z-20">
         <div className="mb-4">
@@ -24,15 +24,15 @@ function HorizontalProjectCard({ project, index }: { project: typeof projectsDat
             0{index + 1} // {project.tagline}
           </span>
         </div>
-        
+
         <h3 className="text-4xl md:text-5xl lg:text-6xl font-black font-heading tracking-tight mb-4 text-white">
           {project.title}
         </h3>
-        
+
         <p className="text-muted-foreground/80 text-sm md:text-base lg:text-lg leading-relaxed mb-6 line-clamp-3">
           {project.description}
         </p>
-        
+
         <div className="flex flex-wrap gap-2 mb-8 hidden md:flex">
           {project.tech.map((t) => (
             <span key={t} className="px-3 py-1.5 rounded-full text-[10px] md:text-xs font-mono border border-white/10 bg-white/5 text-white/70">
@@ -40,23 +40,21 @@ function HorizontalProjectCard({ project, index }: { project: typeof projectsDat
             </span>
           ))}
         </div>
-        
+
         <div className="flex gap-4 mt-auto">
           <MagneticButton>
-            <a 
-              href={project.github} 
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href={`/projects/${project.slug}`}
               className="inline-flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-white transition-all hover:scale-105"
               style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}80)`, boxShadow: `0 10px 30px -10px ${project.accent}` }}
             >
               <ExternalLink className="w-4 h-4 md:w-5 md:h-5" /> Explore
-            </a>
+            </Link>
           </MagneticButton>
           <MagneticButton>
-            <a 
-              href={project.github} 
-              target="_blank" 
+            <a
+              href={project.github}
+              target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full text-white transition-all hover:scale-105 border border-white/10 bg-white/5 hover:bg-white/10"
             >
@@ -86,7 +84,7 @@ function HorizontalProjectCard({ project, index }: { project: typeof projectsDat
 
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -97,9 +95,9 @@ export default function Projects() {
   return (
     <section ref={containerRef} id="projects" className="relative h-[400vh] bg-[#030303]">
       <div className="absolute top-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent, rgba(232,41,58,0.3), transparent)" }} />
-      
+
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-end pb-[5vh] md:pb-[8vh]">
-        
+
         {/* Fixed Title that stays in place while horizontal scrolling happens */}
         <div className="absolute top-[8vh] left-[5vw] z-20 pointer-events-none">
           <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block" style={{ color: "#E8293A" }}>// featured work</span>
@@ -114,7 +112,7 @@ export default function Projects() {
             <HorizontalProjectCard key={project.slug} project={project} index={index} />
           ))}
         </motion.div>
-        
+
       </div>
     </section>
   );
