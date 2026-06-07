@@ -124,6 +124,7 @@ export default function InteractiveTerminal() {
               placeholder="type a command..."
               autoComplete="off"
               spellCheck="false"
+              suppressHydrationWarning={true}
             />
             <span className="cursor-blink text-primary font-bold">█</span>
           </form>

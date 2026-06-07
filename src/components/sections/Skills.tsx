@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import SkillsRadar from "@/components/ui/skills-radar";
 import { 
   SiReact, SiNextdotjs, SiTailwindcss, SiJavascript, SiTypescript, 
   SiNodedotjs, SiExpress, SiMongodb, SiFirebase, SiPython, 
@@ -9,6 +9,7 @@ import {
   SiJsonwebtokens, SiGoogle
 } from "react-icons/si";
 import { TbBrain, TbApi } from "react-icons/tb";
+import { Cpu } from "lucide-react";
 
 const skillCategories = [
   {
@@ -46,7 +47,7 @@ const skillCategories = [
   {
     title: "AI / ML",
     label: "04",
-    color: "#E8293A",
+    color: "#3B82F6",
     skills: [
       { name: "Python", icon: SiPython, color: "#3776AB" },
       { name: "PyTorch", icon: SiPytorch, color: "#EE4C2C" },
@@ -56,9 +57,9 @@ const skillCategories = [
     ],
   },
   {
-    title: "DevOps & Tools",
+    title: "DevOps",
     label: "05",
-    color: "#FF6B35",
+    color: "#10B981",
     skills: [
       { name: "Git", icon: SiGit, color: "#F05032" },
       { name: "GitHub", icon: SiGithub, color: "#ffffff" },
@@ -70,130 +71,137 @@ const skillCategories = [
 ];
 
 export default function Skills() {
+  const [hoveredBranch, setHoveredBranch] = useState<string | null>(null);
+
   return (
-    <section id="skills" className="py-28 relative overflow-hidden">
+    <section id="skills" className="py-28 relative overflow-hidden bg-[#020202]">
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(232,41,58,0.3), transparent)" }} />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(232,41,58,0.04) 0%, transparent 65%)" }}
+        style={{ background: "radial-gradient(circle, rgba(232,41,58,0.03) 0%, transparent 65%)" }}
       />
 
-      <div className="container mx-auto px-6 md:px-12 max-w-6xl relative z-10">
+      <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-24"
         >
-          <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block" style={{ color: "#E8293A" }}>// technical arsenal</span>
-          <h2 className="text-4xl md:text-5xl font-bold font-heading">
-            Tech <span className="text-gradient">Stack</span>
+          <span className="text-xs font-mono tracking-[0.3em] uppercase mb-4 block text-[#E8293A]">// skill_tree.exe</span>
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-white">
+            Tech <span className="text-gradient">Tree</span>
           </h2>
         </motion.div>
 
-        {/* Two-column layout: Radar + Icon Wall */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Radar chart */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="flex flex-col items-center gap-6"
-          >
-            <h3 className="text-sm font-mono uppercase tracking-widest" style={{ color: "#E8293A" }}>Proficiency Radar</h3>
-            <div
-              className="w-full rounded-3xl p-8 glass-card"
-              style={{ boxShadow: "0 0 60px rgba(232,41,58,0.05)" }}
-            >
-              <SkillsRadar />
-            </div>
-          </motion.div>
-
-          {/* Categories Wall */}
-          <div className="flex flex-col gap-8">
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.07 }}
-                className="relative rounded-2xl p-6 glass-card glass-card-hover overflow-hidden group"
-              >
-                <span
-                  className="absolute top-4 right-4 font-mono text-4xl font-black leading-none opacity-5 group-hover:opacity-10 transition-opacity"
-                  style={{ color: category.color }}
+        {/* TECH TREE CONTAINER */}
+        <div className="w-full overflow-x-auto pb-16 pt-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+          <div className="min-w-max flex justify-center px-4 sm:px-16">
+            <div className="flex items-center gap-10 sm:gap-20">
+              
+              {/* CENTRAL CORE NODE */}
+              <div className="relative z-10 shrink-0">
+                <motion.div 
+                  className="w-28 h-28 sm:w-36 sm:h-36 rounded-full border border-[#E8293A]/40 bg-black flex flex-col items-center justify-center shadow-[0_0_60px_rgba(232,41,58,0.2)] relative z-10 cursor-crosshair group"
+                  animate={{ boxShadow: ["0 0 30px rgba(232,41,58,0.1)", "0 0 70px rgba(232,41,58,0.4)", "0 0 30px rgba(232,41,58,0.1)"] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  onMouseEnter={() => setHoveredBranch("CORE")}
+                  onMouseLeave={() => setHoveredBranch(null)}
                 >
-                  {category.label}
-                </span>
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="w-1 h-5 rounded-full" style={{ background: category.color, boxShadow: `0 0 6px ${category.color}80` }} />
-                  <h3 className="text-lg font-bold font-heading text-white">{category.title}</h3>
-                </div>
+                  <div className="absolute inset-0 rounded-full border border-[#E8293A]/60 animate-[ping_3s_infinite]" />
+                  <Cpu className={`w-10 h-10 sm:w-12 sm:h-12 transition-colors duration-500 ${hoveredBranch ? 'text-[#E8293A]' : 'text-white/50'}`} />
+                  <span className={`text-[10px] sm:text-xs font-mono tracking-widest uppercase mt-3 transition-colors duration-500 ${hoveredBranch ? 'text-white' : 'text-white/30'}`}>System Core</span>
+                </motion.div>
+              </div>
+
+              {/* BRANCHES */}
+              <div className="flex flex-col gap-12 sm:gap-16 relative">
                 
-                {/* Icon Grid for this Category */}
-                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {category.skills.map((skill, idx) => (
-                    <motion.div
-                      key={idx}
-                      id={`skill-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                      className="group/item relative transition-all duration-700"
+                {/* Vertical Trunk Line */}
+                <div className="absolute left-[-2.5rem] sm:left-[-5rem] top-[50px] bottom-[50px] w-0.5 bg-white/10 -z-10" />
+
+                {skillCategories.map((cat, i) => {
+                  const isHovered = hoveredBranch === cat.title || hoveredBranch === "CORE";
+                  const isSpecificHover = hoveredBranch === cat.title;
+                  
+                  return (
+                    <motion.div 
+                      key={i} 
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      className="flex items-center gap-8 sm:gap-16 relative group" 
+                      onMouseEnter={() => setHoveredBranch(cat.title)} 
+                      onMouseLeave={() => setHoveredBranch(null)}
                     >
-                      <motion.div
-                        animate={{ y: [0, -4, 0] }}
-                        transition={{ 
-                          duration: 3, 
-                          repeat: Infinity, 
-                          repeatType: "mirror", 
-                          delay: (idx % 3) * 0.4 + (idx % 2) * 0.2, // Offset animation phases
-                          ease: "easeInOut" 
-                        }}
-                        className="flex flex-col items-center justify-center p-3 rounded-2xl glass-card relative overflow-hidden transition-all duration-300 group-hover/item:scale-110 group-hover/item:-translate-y-1 z-10 group-hover/item:z-20"
-                        style={{ 
-                          background: "rgba(255,255,255,0.02)", 
-                          border: "1px solid rgba(255,255,255,0.05)" 
-                        }}
-                        onMouseEnter={(e) => {
-                          const el = e.currentTarget as HTMLElement;
-                          el.style.borderColor = skill.color;
-                          el.style.background = `rgba(255,255,255,0.04)`;
-                          el.style.boxShadow = `0 0 20px ${skill.color}40, inset 0 0 10px ${skill.color}20`;
-                          const icon = el.querySelector("svg");
-                          if (icon) {
-                            icon.style.color = skill.color;
-                            icon.style.filter = `drop-shadow(0 0 8px ${skill.color})`;
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          const el = e.currentTarget as HTMLElement;
-                          el.style.borderColor = "rgba(255,255,255,0.05)";
-                          el.style.background = "rgba(255,255,255,0.02)";
-                          el.style.boxShadow = "none";
-                          const icon = el.querySelector("svg");
-                          if (icon) {
-                            icon.style.color = "rgba(255,255,255,0.5)";
-                            icon.style.filter = "none";
-                          }
-                        }}
-                      >
-                        <skill.icon className="w-7 h-7 text-white/50 transition-all duration-300 group-hover/item:scale-110" />
-                        <span className="mt-2 text-[9px] font-mono tracking-wider text-white/40 group-hover/item:text-white/90 transition-colors uppercase text-center w-full truncate">
-                          {skill.name}
-                        </span>
-                      </motion.div>
-                      
-                      {/* Glow behind the card on hover */}
-                      <div 
-                        className="absolute inset-0 rounded-2xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-500 blur-lg -z-10"
-                        style={{ background: skill.color }}
+                      {/* Connection from Trunk to Branch Node */}
+                      <div className="absolute left-[-2.5rem] sm:left-[-5rem] w-10 sm:w-20 h-0.5 -z-10 transition-all duration-500" 
+                           style={{ 
+                             backgroundColor: isHovered ? cat.color : "rgba(255,255,255,0.1)",
+                             boxShadow: isHovered ? `0 0 15px ${cat.color}` : "none"
+                           }} 
                       />
+
+                      {/* BRANCH NODE */}
+                      <div className="relative z-10 shrink-0 w-40 sm:w-48">
+                        <div 
+                          className={`px-6 py-4 rounded-xl border transition-all duration-500 flex flex-col items-center justify-center cursor-crosshair`}
+                          style={{
+                            borderColor: isHovered ? cat.color : "rgba(255,255,255,0.1)",
+                            backgroundColor: isHovered ? `${cat.color}15` : "rgba(10,10,10,0.8)",
+                            boxShadow: isHovered ? `0 0 30px ${cat.color}30, inset 0 0 10px ${cat.color}10` : "0 0 20px rgba(0,0,0,0.5)"
+                          }}
+                        >
+                          <span className="text-[10px] font-mono mb-1 opacity-50" style={{ color: isHovered ? cat.color : "rgba(255,255,255,0.5)" }}>[{cat.label}]</span>
+                          <span className="font-bold font-heading tracking-wide text-sm sm:text-base" style={{ color: isHovered ? "#fff" : "rgba(255,255,255,0.6)" }}>
+                            {cat.title}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* LEAVES (SKILLS) */}
+                      <div className="flex gap-4 sm:gap-6 relative">
+                        {/* Connection from Branch Node through Leaves */}
+                        <div className="absolute left-[-2rem] sm:left-[-4rem] right-4 top-1/2 -translate-y-1/2 h-0.5 -z-10 transition-all duration-500" 
+                             style={{ 
+                               backgroundColor: isHovered ? `${cat.color}80` : "rgba(255,255,255,0.05)",
+                               boxShadow: isHovered ? `0 0 10px ${cat.color}` : "none"
+                             }} 
+                        />
+
+                        {cat.skills.map((skill, j) => (
+                          <div key={j} className="relative z-10 group/skill">
+                            <motion.div
+                              whileHover={{ y: -5, scale: 1.1 }}
+                              className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl flex items-center justify-center bg-[#050505] border transition-all duration-500"
+                              style={{
+                                borderColor: isSpecificHover ? skill.color : (isHovered ? cat.color : "rgba(255,255,255,0.1)"),
+                                boxShadow: isSpecificHover ? `0 0 25px ${skill.color}50, inset 0 0 15px ${skill.color}30` : (isHovered ? `0 0 15px ${cat.color}20` : "0 5px 15px rgba(0,0,0,0.5)")
+                              }}
+                            >
+                              <skill.icon 
+                                className="w-7 h-7 sm:w-8 sm:h-8 transition-all duration-500" 
+                                style={{ 
+                                  color: isSpecificHover ? skill.color : (isHovered ? "#fff" : "rgba(255,255,255,0.3)"), 
+                                  filter: isSpecificHover ? `drop-shadow(0 0 10px ${skill.color})` : "none" 
+                                }} 
+                              />
+                            </motion.div>
+                            
+                            {/* Skill Name Label */}
+                            <div className={`absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-mono whitespace-nowrap transition-opacity duration-300 pointer-events-none ${isSpecificHover ? 'opacity-100' : 'opacity-0'}`} style={{ color: skill.color }}>
+                              {skill.name}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                  )
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

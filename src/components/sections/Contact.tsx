@@ -130,6 +130,7 @@ export default function Contact() {
                     }}
                     onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,41,58,0.45)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(232,41,58,0.1)"; }}
                     onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(232,41,58,0.15)"; e.currentTarget.style.boxShadow = "none"; }}
+                    suppressHydrationWarning={true}
                   />
                 </div>
               ))}
@@ -149,6 +150,7 @@ export default function Contact() {
                   }}
                   onFocus={(e) => { e.currentTarget.style.borderColor = "rgba(232,41,58,0.45)"; e.currentTarget.style.boxShadow = "0 0 20px rgba(232,41,58,0.1)"; }}
                   onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(232,41,58,0.15)"; e.currentTarget.style.boxShadow = "none"; }}
+                  suppressHydrationWarning={true}
                 />
               </div>
 
@@ -160,6 +162,7 @@ export default function Contact() {
                     background: "linear-gradient(135deg, #E8293A 0%, #9B1C2E 100%)",
                     boxShadow: "0 0 25px rgba(232,41,58,0.35)",
                   }}
+                  suppressHydrationWarning={true}
                 >
                   Send Message
                   <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
