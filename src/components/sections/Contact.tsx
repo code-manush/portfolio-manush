@@ -9,22 +9,22 @@ const socialLinks = [
   {
     icon: <Mail className="w-5 h-5" />,
     label: "Email",
-    value: "manush@example.com",
-    href: "mailto:manush@example.com",
+    value: "manushpatel1426@gmail.com",
+    href: "mailto:manushpatel1426@gmail.com",
     color: "#E8293A",
   },
   {
     icon: <FaLinkedin className="w-5 h-5" />,
     label: "LinkedIn",
-    value: "/in/manushpatel",
-    href: "#",
+    value: "/in/manushpatel14",
+    href: "https://www.linkedin.com/in/manushpatel14",
     color: "#0077b5",
   },
   {
     icon: <FaGithub className="w-5 h-5" />,
     label: "GitHub",
-    value: "github.com/manush",
-    href: "#",
+    value: "github.com/code-manush",
+    href: "https://github.com/code-manush",
     color: "#E8293A",
   },
 ];
@@ -72,9 +72,11 @@ export default function Contact() {
                 <motion.a
                   key={i}
                   href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
                   whileHover={{ x: 6 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="flex items-center gap-4 group w-fit"
+                  className="flex items-center gap-4 group w-fit cursor-pointer relative z-50"
                 >
                   <div
                     className="p-3 rounded-xl border transition-all"
