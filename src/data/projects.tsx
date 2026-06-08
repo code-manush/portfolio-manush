@@ -64,9 +64,10 @@ export const projectsData: Project[] = [
     ],
     retrospective: "The initial Socket.io implementation struggled under high event loads when multiple 'cameras' were sending density data simultaneously. I learned to implement event debouncing and batched payloads on the server before emitting to connected clients.",
     gallery: [
-      "/projects/traff_iq_dashboard_1780657887410.png", 
+      "/projects/traff_iq_1.png",
       "/projects/traff_iq_map_1780657901919.png",
-      "/projects/traff_iq_signal_1780657916298.png"
+      "/projects/traff_iq_signal_1780657916298.png",
+      "/projects/traff_iq_dashboard_1780657887410.png"
     ],
     features: [
       "Real-time traffic density mapping via WebSockets",
@@ -141,9 +142,14 @@ process_intersection_feed()`,
     ],
     retrospective: "Relying heavily on a single AI provider creates a single point of failure. If I were to expand this, I would implement an adapter pattern on the backend to easily hot-swap between Gemini, OpenAI, and Anthropic APIs.",
     gallery: [
-      "/projects/skillbuddy_path_1780657941209.png", 
-      "/projects/skillbuddy_chat_1780657954166.png",
-      "/projects/skillbuddy_chart_1780657964023.png"
+      "/projects/image.png",
+      "/projects/image copy.png",
+      "/projects/image copy 2.png",
+      "/projects/image copy 3.png",
+      "/projects/image copy 4.png",
+      "/projects/image copy 5.png",
+      "/projects/image copy 6.png",
+      "/projects/image copy 7.png"
     ],
     features: [
       "AI-driven skill gap analysis via Gemini API",
@@ -152,7 +158,7 @@ process_intersection_feed()`,
       "RESTful API architecture with MongoDB storage"
     ],
     tech: ["React", "Express.js", "MongoDB", "Node.js", "Gemini AI"],
-    image: "/projects/skillbuddy_path_1780657941209.png",
+    image: "/projects/image.png",
     github: "https://github.com/code-manush/skillbuddy",
     demo: "#",
     accent: "#8B5CF6",
@@ -220,9 +226,16 @@ export const generateCurriculum = async (req, res) => {
     ],
     retrospective: "Managing state for complex product filtering on the server side was challenging. In the future, I'd integrate a lightweight headless CMS (like Sanity or PayloadCMS) so the marketing team can update the catalogue without requiring me to push code changes.",
     gallery: [
-      "/projects/spenta_homepage_1780657985864.png", 
-      "/projects/spenta_products_1780657999077.png",
-      "/projects/spenta_mobile_1780658012379.png"
+      "/projects/spenta1.png",
+      "/projects/spenta2.png",
+      "/projects/spenta3.png",
+      "/projects/spenta4.png",
+      "/projects/spenta5.png",
+      "/projects/spenta6.png",
+      "/projects/spenta7.png",
+      "/projects/spenta8.png",
+      "/projects/spenta9.png",
+      "/projects/spenta10.png"
     ],
     features: [
       "Dynamic Product Catalogue and Industry Pages",
@@ -231,7 +244,7 @@ export const generateCurriculum = async (req, res) => {
       "Mobile-first responsive design with Tailwind CSS"
     ],
     tech: ["Next.js 16", "TypeScript", "Tailwind CSS", "Nodemailer", "Framer Motion"],
-    image: "/projects/spenta_homepage_1780657985864.png",
+    image: "/projects/spenta1.png",
     github: "https://github.com/code-manush/spenta-engineers",
     demo: "#",
     accent: "#F59E0B",
@@ -299,9 +312,12 @@ export async function submitContact(formData: FormData) {
     ],
     retrospective: "If I were to rebuild this platform for production scale today, I would implement Server-Side Rendering (SSR) using Next.js. Improving SEO for the public-facing reports is critical for an NGO's organic reach, which a React SPA struggles with out-of-the-box.",
     gallery: [
-      "/projects/navastitva_dashboard_1780658034603.png", 
-      "/projects/navastitva_report_1780658048591.png",
-      "/projects/navastitva_donate_1780658061305.png"
+      "/projects/nav1.png",
+      "/projects/nav2.png",
+      "/projects/nav3.png",
+      "/projects/nav4.png",
+      "/projects/nav5.png",
+      "/projects/nav6.png",
     ],
     features: [
       "Dynamic reporting system (Survey, Project, Audit)",
@@ -310,7 +326,7 @@ export async function submitContact(formData: FormData) {
       "Responsive image gallery and career portal"
     ],
     tech: ["React 19", "Vite", "Tailwind CSS", "React Router v7"],
-    image: "/projects/navastitva_dashboard_1780658034603.png",
+    image: "/projects/nav1.png",
     github: "https://github.com/hck-anmol/NavAstitva",
     demo: "#",
     accent: "#E8293A",
@@ -370,9 +386,9 @@ export const ReportRouter = () => (
     ],
     retrospective: "Handling browser geolocation edge cases (like users denying permission) initially caused UX friction. I learned the critical importance of providing immediate, graceful fallbacks (defaulting to a major city like New York) rather than blocking the UI to wait for user interaction.",
     gallery: [
-      "/projects/climatrix_sunny_1780658081546.png",
-      "/projects/climatrix_rainy_1780658094512.png",
-      "/projects/climatrix_voice_1780658108878.png"
+      "/projects/image copy 8.png",
+      "/projects/image copy 9.png",
+      "/projects/image copy 10.png"
     ],
     features: [
       "Real-time weather data & 5-day forecast via OpenWeatherMap",
@@ -382,7 +398,7 @@ export const ReportRouter = () => (
       "Live digital clock and localized date formatting"
     ],
     tech: ["React", "Vite", "Tailwind CSS", "OpenWeather", "Web Speech API"],
-    image: "/projects/climatrix_sunny_1780658081546.png",
+    image: "/projects/image copy 8.png",
     github: "https://github.com/code-manush/Climatrix-A-Weather-Application",
     demo: "#",
     accent: "#3B82F6",
