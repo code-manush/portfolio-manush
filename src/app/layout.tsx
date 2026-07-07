@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 import Navbar from "@/components/layout/navbar";
 import CommandPalette from "@/components/features/CommandPalette";
-import ManushGPT from "@/components/features/ManushGPT";
+import MAssist from "@/components/features/MAssist";
 import CustomCursor from "@/components/ui/custom-cursor";
 import ParticleBackground from "@/components/ui/particle-background";
 import PageTransition from "@/components/layout/page-transition";
@@ -51,7 +51,7 @@ export default function RootLayout({
           </PageTransition>
         </main>
         <CommandPalette />
-        <ManushGPT />
+        <MAssist />
       </body>
     </html>
   );

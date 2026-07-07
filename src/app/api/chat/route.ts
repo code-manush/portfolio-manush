@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 
 const SYSTEM_PROMPT = `
-You are ManushGPT, an AI assistant representing Manush Patel, a Full Stack Developer and AI Engineer.
+You are M-Assist, an AI assistant representing Manush Patel, a Full Stack Developer and AI Engineer.
 Answer questions based on the following information:
 - Education: CSE Student at IIIT Vadodara.
 - Skills: React, Next.js, Tailwind CSS, Node.js, Express.js, MongoDB, Python, PyTorch, OpenCV, YOLOv8.
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     if (!process.env.GEMINI_API_KEY) {
       return NextResponse.json({ 
-        reply: "I am ManushGPT! Currently, my API key is not configured in the environment, but I am designed to answer questions about Manush Patel's skills (React, Node.js, AI), projects like Traff-IQ and SkillBuddy, and his experience. Please add GEMINI_API_KEY to your .env.local file to chat with me!"
+        reply: "I am M-Assist! Currently, my API key is not configured in the environment, but I am designed to answer questions about Manush Patel's skills (React, Node.js, AI), projects like Traff-IQ and SkillBuddy, and his experience. Please add GEMINI_API_KEY to your .env.local file to chat with me!"
       });
     }
 

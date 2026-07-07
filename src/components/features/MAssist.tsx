@@ -9,10 +9,10 @@ type Message = {
   content: string;
 };
 
-export default function ManushGPT() {
+export default function MAssist() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hey! I'm ManushGPT. Ask me anything about Manush's skills, projects, or experience." }
+    { role: "assistant", content: "Hey! I'm M-Assist. Ask me anything about Manush's skills, projects, or experience." }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +98,7 @@ export default function ManushGPT() {
                   <Cpu className="w-4 h-4 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-sm font-heading">ManushGPT</h3>
+                  <h3 className="font-bold text-white text-sm font-heading">M-Assist</h3>
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                     <span className="text-[10px] text-primary font-mono">online</span>
